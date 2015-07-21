@@ -11,17 +11,19 @@ randWord =  wordList[random.randrange(len(wordList))]
 alphabet = [n for n in 'abcdefghijklmnopqrstuvwxyz']
 randWordDisplayed = "-" * len(randWord)
 
+# for testing only, comment out the next two lines to actually play the game
 print randWord
 print randWordDisplayed
 
-
-# write a function that takes the user input for 10 turns, gives results to the user, and eventually when the turn is over print the restuls
+# write a function that takes the user input for x turns, gives results to the user, and eventually when the turn is over print the restuls
 
 def resultCheck():
 	results = [n for n in randWordDisplayed] # placeholder of the word with the dashes and the random letter
 	guessedLetters = []
 	turn = 0
-	while turn <=5:
+	turnLength = random.randrange(len(randWord), 20) #we want to make sure there's enough turns to actually guess the word
+	print "You have a total of ", turnLength, "turns. Good luck!"
+	while turn <=turnLength:
 		userGuess = raw_input("Pick a letter from the alphabet")
 		if str.lower(userGuess) not in alphabet:
 			print "Pick a letter from the alphabet"
@@ -35,13 +37,14 @@ def resultCheck():
 					results[x] =  str.lower(userGuess)
 			turn += 1
 			if [n for n in results] == [n for n in randWord]:
-				turn = 11
+				turn = turnLength
 				print "Congrats you guess the word", "".join(results)
+				break
 			else:
 				print "word to guess: ", "".join(results)
 		else:
 			guessedLetters.append(str.lower(userGuess))
-			print "this is an incorrect letter,  you have: ", 5 - turn, "turns left"
+			print "this is an incorrect letter,  you have: ", turnLength - turn, "turns left"
 			print "word to guess: ", "".join(results)
 			turn += 1
 
