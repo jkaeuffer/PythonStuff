@@ -1,6 +1,6 @@
 
 # to make a game of hangman we first need to generate a random word and now display it, intead we need to display a select (and random) set of letters, and dashes for the missing letters.
-# players should also be able to know which letters they have tried to guess already and which ones are left.
+# players should also be able to know which letters they have tried to guess already and which ones are left. That will come in a V2
 # if a player guesses a letter then we show all the letters he guessed.
 
 import random
