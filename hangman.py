@@ -6,15 +6,6 @@
 import random
 
 wordList = ["banana", "elephant", "music", "computer"] # populating a list with words we'll randomly pick
-word_list_file = open("words_list.txt", "r")
-dictionary = []
-
-with word_list_file as input:
-	for word in input:
-		dictionary.append(str(word.split()))
-
-print dictionary[0:15]
-
 randWord =  wordList[random.randrange(len(wordList))]
 alphabet = [n for n in 'abcdefghijklmnopqrstuvwxyz']
 randWordDisplayed = "-" * len(randWord)
