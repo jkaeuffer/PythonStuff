@@ -33,7 +33,7 @@ def createDeck():
 
 deckOfCards = createDeck()
 
-
+suitsOrder = ["s", "h", "d", "c"]
 # shuffle and deal cards
 
 def dealCards(cards):
@@ -69,10 +69,23 @@ def indexInDict(a):
 
 # check best card
 
-# def bestCard(x, y):
-# 	cardRankPlayerA = x[:-1]
-# 	cardRankPlayerB = y[:-1]
-# 	cardValuePlayerA = deckVersion2["Values"][indexInDict(cardRankPlayerA)]
+def bestCard(x, y):
+	# finding the card's rank
+	cardRankPlayerA = x[:-1]
+	cardRankPlayerB = y[:-1]
+	# find the card's suit
+	cardSuitPlayerA = x[-1:]
+	cardSuitPlayerB = y[-1:]
+	#find the value equivalent to the card's rank
+	cardValuePlayerA = deckVersion2["Values"][indexInDict(cardRankPlayerA)]
+	cardValuePlayerB = deckVersion2["Values"][indexInDict(cardRankPlayerB)]
+	# comparing the card's values first, assuming they're not equal to each other
+	# we'll get to the "equal to each other" part later
+	if int(cardValuePlayerA) > int(cardValuePlayerB):
+		# if player A wins, they get both cards to their deck
+		playerAcards.append(x,y)
+	elif int(cardValuePlayerB) > int(cardValuePlayerA):
+		playerBCards.append(x,y)
 
 
 
