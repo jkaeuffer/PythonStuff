@@ -68,7 +68,7 @@ def indexInDict(a):
 # print deckVersion2["Values"][indexInDict(playerAPick[:-1])]
 
 # check best card
-
+dealCards(deckOfCards)
 def bestCard(x, y):
 	# finding the card's rank
 	cardRankPlayerA = x[:-1]
@@ -76,16 +76,46 @@ def bestCard(x, y):
 	# find the card's suit
 	cardSuitPlayerA = x[-1:]
 	cardSuitPlayerB = y[-1:]
+	cardSuitPlayerAIndex = suitsOrder.index(cardSuitPlayerA)
+	cardSuitPlayerBIndex = suitsOrder.index(cardSuitPlayerB)
 	#find the value equivalent to the card's rank
 	cardValuePlayerA = deckVersion2["Values"][indexInDict(cardRankPlayerA)]
 	cardValuePlayerB = deckVersion2["Values"][indexInDict(cardRankPlayerB)]
 	# comparing the card's values first, assuming they're not equal to each other
 	# we'll get to the "equal to each other" part later
 	if int(cardValuePlayerA) > int(cardValuePlayerB):
-		# if player A wins, they get both cards to their deck
-		playerAcards.append(x,y)
+		# if player wins, they get both cards to their deck
+		playerAcards.append(x)
+		playerAcards.append(y)
 	elif int(cardValuePlayerB) > int(cardValuePlayerA):
-		playerBCards.append(x,y)
+		playerBCards.append(x)
+		playerBCards.append(y)
+	# now let's look at if the cards ranks are the same, then the values win over. We have a list
+	# suitsOrder that tracks the order of suits 
+	elif int(cardValuePlayerA) == int(cardValuePlayerB):
+		# if the INDEX is lower that means it's earlier in the list	
+		if cardSuitPlayerAIndex < cardSuitPlayerBIndex:
+			playerAcards.append(x)
+			playerAcards.append(y)
+		else:
+			playerBcards.append(x)
+			playerBcards.append(y)
+	else:
+		return "This is not possible PlayerA's card was", x, "Player B's card was", y
+
+
+
+#printing everything for debugging
+print "Cards are %s \n" % deckOfCards
+print "Player A's cards are %s \n" % playerACards
+print "Player B's cards are %s \n" % playerBCards
+print "Player A's pick is %s \n" % playerAPick
+print "Player B's pick is %s \n" % playerBPick
+print bestCard(playerAPick, playerBPick)
+
+
+
+
 
 
 
