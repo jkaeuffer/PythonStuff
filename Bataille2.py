@@ -11,6 +11,7 @@
 # 6 if they are equal then have them go another round (to simplify we could use color suits as a tie break rule)
 # 7 check if one users list is empty, if it is, this player has lost.
 
+#I'm adding a break if the turns go more than 50 otherwise it risks creating an infinte loop.
 import random
 
 
@@ -22,7 +23,7 @@ import random
 # (playerA, playerB) = getPlayersNames()
 
 #this dictionary holds the cards ranks, suits, and values
-deckVersion2 = {
+deckDict = {
 	"Ranks": ["2","3","4","5","6","7","8","9","10",'J','Q','K','A'],
 	"Suits": ["s", "h", "d", "c"], 
 	"Values": [2,3,4,5,6,7,8,9,10,11,12,13,14]
@@ -30,33 +31,27 @@ deckVersion2 = {
 
 #we are creating the deck by combining the ranks and the suits
 def createDeck():
-	suitsList = [n for n in deckVersion2['Suits']]
+	suitsList = [n for n in deckDict['Suits']]
 	deckOfCards = []
-	for n in deckVersion2["Ranks"]:
+	for n in deckDict["Ranks"]:
 		for x in range (len(suitsList)):
 			deckOfCards.append(n + suitsList[x])
 	return deckOfCards
 
-#assigning the newly created deck to "deckOfCards" variable, this way a new deck is created, and we're re-using just the variable in
-#the other functions
-deckOfCards = createDeck()
-
  # for debugging
-print "The deck is %s cards\n" % len(deckOfCards)
+# print "The deck is %s cards\n" % len(deckOfCards)
 
 # shuffle and deal cards
 def dealCards(cards):
 	deckToShuffle = random.shuffle(cards)
-	playerA = []
-	playerB = []
+	playerACards = []
+	playerBCards = []
 	for n in range(len(cards) - 1):
 		if n % 2 != 0:
-			playerA.append(cards[n])
+			playerACards.append(cards[n])
 		else:
-			playerB.append(cards[n])
-	return playerA, playerB
-
-(playerACards, playerBCards) = dealCards(deckOfCards)
+			playerBCards.append(cards[n])
+	return playerACards, playerBCards
 
 # pick top card for each player
 
@@ -65,72 +60,80 @@ def pickCards(x, y):
 	playerBPick = y.pop()
 	return playerAPick, playerBPick
 
-(playerAPick, playerBPick) = pickCards(playerACards, playerBCards)
-
-# for debugging
-# print deckVersion2["Ranks"].index("J")
-
 # find index in dictionary from a rank
 def indexInDict(a):
-	rankIndex = deckVersion2["Ranks"].index(a)
+	rankIndex = deckDict["Ranks"].index(a)
 	return rankIndex
 
-# for debugging
-# print deckVersion2["Values"][indexInDict(playerAPick[:-1])]
-
-# check best card
-dealCards(deckOfCards)
-print "Player A has %s cards in their deck\n" % len(playerACards)
-print "Player B has %s cards in their deck\n" % len(playerBCards)
-
-def bestCard(x, y):
+def bestCard(x, y, z, a):
 	# finding the card's rank
-	cardRankPlayerA = x[:-1]
-	cardRankPlayerB = y[:-1]
-	# find the card's suit
+	playerACards = z
+	playerBCards = a
+	if x[0] == "A":
+		cardRankPlayerA = x[0]
+	else:
+		cardRankPlayerA = x[:-1]
+	if y[0] == "A":
+		cardRankPlayerB = y[0]
+	else:
+		cardRankPlayerB = y[:-1]
 	cardSuitPlayerA = x[-1:]
 	cardSuitPlayerB = y[-1:]
-	cardSuitPlayerAIndex = deckVersion2["Suits"].index(cardSuitPlayerA)
-	cardSuitPlayerBIndex = deckVersion2["Suits"].index(cardSuitPlayerB)
-	#find the value equivalent to the card's rank
-	cardValuePlayerA = deckVersion2["Values"][indexInDict(cardRankPlayerA)]
-	cardValuePlayerB = deckVersion2["Values"][indexInDict(cardRankPlayerB)]
-	# comparing the card's values first, assuming they're not equal to each other
-	# we'll get to the "equal to each other" part later
+	cardSuitPlayerAIndex = deckDict["Suits"].index(cardSuitPlayerA)
+	cardSuitPlayerBIndex = deckDict["Suits"].index(cardSuitPlayerB)
+	cardValuePlayerA = deckDict["Values"][indexInDict(cardRankPlayerA)]
+	cardValuePlayerB = deckDict["Values"][indexInDict(cardRankPlayerB)]
 	if int(cardValuePlayerA) > int(cardValuePlayerB):
-		# if player wins, they get both cards to their deck
 		playerACards.append(x)
 		playerACards.append(y)
 		print "Player A wins this round"
+		return playerACards
 	elif int(cardValuePlayerB) > int(cardValuePlayerA):
 		playerBCards.append(x)
 		playerBCards.append(y)
 		print "Player B wins this round"
-	# now let's look at if the cards ranks are the same, then the values win over. We have a list
-	# suitsOrder that tracks the order of suits 
+		return playerBCards
 	elif int(cardValuePlayerA) == int(cardValuePlayerB):
-		# if the INDEX is lower that means it's earlier in the list	
 		if cardSuitPlayerAIndex < cardSuitPlayerBIndex:
 			playerACards.append(x)
 			playerACards.append(y)
 			print "Player A wins this round"
+			return playerACards
 		else:
 			playerBCards.append(x)
 			playerBCards.append(y)
 			print "Player B wins this round"
+			return playerBCards
 	else:
 		return "This is not possible PlayerA's card was", x, "Player B's card was", y
-	return "Player A now has %s cards in their deck and player B has now %s cards in their deck\n" % (len(playerACards), len(playerBCards))
+	#return "Player A now has %s cards in their deck and player B has now %s cards in their deck\n" % (len(playerACards), len(playerBCards))
+	#return playerACards, playerBCards
 
+def play():
+	deckOfCards = createDeck()
+	print deckOfCards
+	(playerACards, playerBCards) = dealCards(deckOfCards)
+	round = 0
+	while (len(playerACards) > 0 and len(playerBCards) > 0):
+		(playerAPick, playerBPick) = pickCards(playerACards, playerBCards)
+		bestCard(playerAPick, playerBPick, playerACards, playerBCards)
+		round += 1
+	if len(playerACards) == 0:
+		print "player B won after %s rounds" % (round)
+	else:
+		print "Player A won after %s rounds" % (round)
 
+play()
+
+# (playerAPick, playerBPick) = pickCards(playerACards, playerBCards)
 
 #printing everything for debugging
-print "Cards are %s \n" % deckOfCards
-print "Player A's cards are %s \n" % playerACards
-print "Player B's cards are %s \n" % playerBCards
-print "Player A's pick is %s \n" % playerAPick
-print "Player B's pick is %s \n" % playerBPick
-print bestCard(playerAPick, playerBPick)
+# print "Cards are %s \n" % deckOfCards
+# print "Player A's cards are %s \n" % playerACards
+# print "Player B's cards are %s \n" % playerBCards
+# print "Player A's pick is %s \n" % playerAPick
+# print "Player B's pick is %s \n" % playerBPick
+# print bestCard(playerAPick, playerBPick)
 
 
 
