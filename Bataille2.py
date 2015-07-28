@@ -14,11 +14,11 @@
 #I'm adding a break if the turns go more than 50 otherwise it risks creating an infinte loop.
 import random
 
-
 #asking for players names
-# def getPlayersNames():
-# 	playerA = raw_input("First Player's name?")
-# 	playerB = raw_input("Second Player's name?")
+def getPlayersNames():
+	playerA = raw_input("First Player's name?")
+	playerB = raw_input("Second Player's name?")
+	return playerA, playerB
 
 #this dictionary holds the cards ranks, suits, and values
 deckDict = {
@@ -62,9 +62,11 @@ def indexInDict(a):
 	rankIndex = deckDict["Ranks"].index(a)
 	return rankIndex
 
-def bestCard(x, y, z, a):
+def bestCard(player1, player2, x, y, z, a):
 	playerACards = z
 	playerBCards = a
+	playerA = player1
+	playerB = player2
 	if x[0] == "A":
 		cardRankPlayerA = x[0]
 	else:
@@ -82,23 +84,23 @@ def bestCard(x, y, z, a):
 	if int(cardValuePlayerA) > int(cardValuePlayerB):
 		playerACards.insert(0,x)
 		playerACards.insert(0,y)
-		print "Player A wins this round with %s vs %s" % (x,y)
+		print "%s wins this round with %s vs %s" % (playerA, x,y)
 		return playerACards
 	elif int(cardValuePlayerB) > int(cardValuePlayerA):
 		playerBCards.insert(0,x)
 		playerBCards.insert(0,y)
-		print "Player B wins this round with %s vs %s" % (x,y)
+		print "%s wins this round with %s vs %s" % (playerB, x,y)
 		return playerBCards
 	elif int(cardValuePlayerA) == int(cardValuePlayerB):
 		if cardSuitPlayerAIndex < cardSuitPlayerBIndex:
 			playerACards.insert(0,x)
 			playerACards.insert(0,y)
-			print "Player A wins this round with %s vs %s" % (x,y)
+			print "%s wins this round with %s vs %s" % (playerA, x,y)
 			return playerACards
 		else:
 			playerBCards.insert(0,x)
 			playerBCards.insert(0,y)
-			print "Player B wins this round with %s vs %s" % (x,y)
+			print "%s wins this round with %s vs %s" % (playerB, x,y)
 			return playerBCards
 	else:
 		return "This is not possible PlayerA's card was", x, "Player B's card was", y
@@ -106,31 +108,27 @@ def bestCard(x, y, z, a):
 	#return playerACards, playerBCards
 
 def play():
-	# (playerA, playerB) = getPlayersNames()
-	deckOfCards = createDeck()
-	print deckOfCards
-	(playerACards, playerBCards) = dealCards(deckOfCards)
-	round = 0
-	while (len(playerACards) > 0 and len(playerBCards) > 0):
-		(playerAPick, playerBPick) = pickCards(playerACards, playerBCards)
-		bestCard(playerAPick, playerBPick, playerACards, playerBCards)
-		round += 1
-	if len(playerACards) == 0:
-		print "player B won after %s rounds" % (round)
+	(playerA, playerB) = getPlayersNames()
+	print "Hello %s and %s. Are you ready to play? Press Y for yes or N for No" % (playerA, playerB)
+	userResponse = raw_input("Y/N")
+	if userResponse == "Y":
+		deckOfCards = createDeck()
+		print deckOfCards
+		(playerACards, playerBCards) = dealCards(deckOfCards)
+		round = 0
+		while (len(playerACards) > 0 and len(playerBCards) > 0):
+			(playerAPick, playerBPick) = pickCards(playerACards, playerBCards)
+			bestCard(playerA, playerB, playerAPick, playerBPick, playerACards, playerBCards)
+			round += 1
+		if len(playerACards) == 0:
+			print "%s won after %s rounds" % (playerB, round)
+		else:
+			print "%s won after %s rounds" % (playerA, round)
 	else:
-		print "Player A won after %s rounds" % (round)
+		print "Oh well, another time maybe"
 
 play()
 
-# (playerAPick, playerBPick) = pickCards(playerACards, playerBCards)
-
-#printing everything for debugging
-# print "Cards are %s \n" % deckOfCards
-# print "Player A's cards are %s \n" % playerACards
-# print "Player B's cards are %s \n" % playerBCards
-# print "Player A's pick is %s \n" % playerAPick
-# print "Player B's pick is %s \n" % playerBPick
-# print bestCard(playerAPick, playerBPick)
 
 
 
