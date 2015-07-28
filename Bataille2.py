@@ -113,7 +113,6 @@ def play():
 	userResponse = raw_input("Y/N")
 	if userResponse == "Y":
 		deckOfCards = createDeck()
-		print deckOfCards
 		(playerACards, playerBCards) = dealCards(deckOfCards)
 		round = 0
 		while (len(playerACards) > 0 and len(playerBCards) > 0):
