@@ -13,29 +13,40 @@
 
 import random
 
-# Rewrite as a dictionary that has display name (A, 2...), suit (h, c..) and weight (which card is stronger) to be able to compare the weights of these cards instead of their display anmes
 
-# deckOfCards = ['Ac', '2c', '3c', '4c', '5c', '6c', '7c', '8c', '9c', '10c', 'Jc', 'Qc', 'Kc', 'Ad', '2d', '3d', '4d', '5d', '6d', '7d', '8d', '9d', '10d', 'Jd', 'Qd', 'Kd', 'As', '2s', '3s', '4s', '5s', '6s', '7s', '8s', '9s', '10s', 'Js', 'Qs', 'Ks', 'Ah', '2h', '3h', '4h', '5h', '6h', '7h', '8h', '9h', '10h', 'Jh', 'Qh', 'Kh']
+#asking for players names
+def getPlayersNames():
+	playerA = raw_input("First Player's name?")
+	playerB = raw_input("Second Player's name?")
 
+(playerA, playerB) = getPlayersNames
+
+#this dictionary holds the cards ranks, suits, and values
 deckVersion2 = {
 	"Ranks": ["2","3","4","5","6","7","8","9","10",'J','Q','K','A'],
-	"Suits": 'hsdc', 
-	"Values": [2,3,4,5,6,7,8,9,10,11,12,13, 14]
+	"Suits": 'shdc', 
+	"Values": [2,3,4,5,6,7,8,9,10,11,12,13,14]
 }
 
+#we are creating the deck by combining the ranks and the suits
 def createDeck():
 	suitsList = [n for n in deckVersion2['Suits']]
 	deckOfCards = []
 	for n in deckVersion2["Ranks"]:
-		for x in range (len(suitsList)-1):
+		for x in range (len(suitsList)):
 			deckOfCards.append(n + suitsList[x])
 	return deckOfCards
 
+#assigning the newly created deck to "deckOfCards" variable, this way a new deck is created, and we're re-using just the variable in
+#the other functions
 deckOfCards = createDeck()
 
-suitsOrder = ["s", "h", "d", "c"]
-# shuffle and deal cards
+ # for debugging
+print "The deck is %s cards\n" % len(deckOfCards)
 
+suitsOrder = ["s", "h", "d", "c"]
+
+# shuffle and deal cards
 def dealCards(cards):
 	deckToShuffle = random.shuffle(cards)
 	playerA = []
@@ -58,6 +69,7 @@ def pickCards(x, y):
 
 (playerAPick, playerBPick) = pickCards(playerACards, playerBCards)
 
+# for debugging
 # print deckVersion2["Ranks"].index("J")
 
 # find index in dictionary from a rank
@@ -65,10 +77,14 @@ def indexInDict(a):
 	rankIndex = deckVersion2["Ranks"].index(a)
 	return rankIndex
 
+# for debugging
 # print deckVersion2["Values"][indexInDict(playerAPick[:-1])]
 
 # check best card
 dealCards(deckOfCards)
+print "Player A has %s cards in their deck\n" % len(playerACards)
+print "Player B has %s cards in their deck\n" % len(playerBCards)
+
 def bestCard(x, y):
 	# finding the card's rank
 	cardRankPlayerA = x[:-1]
@@ -85,23 +101,28 @@ def bestCard(x, y):
 	# we'll get to the "equal to each other" part later
 	if int(cardValuePlayerA) > int(cardValuePlayerB):
 		# if player wins, they get both cards to their deck
-		playerAcards.append(x)
-		playerAcards.append(y)
+		playerACards.append(x)
+		playerACards.append(y)
+		print "Player A wins this round"
 	elif int(cardValuePlayerB) > int(cardValuePlayerA):
 		playerBCards.append(x)
 		playerBCards.append(y)
+		print "Player B wins this round"
 	# now let's look at if the cards ranks are the same, then the values win over. We have a list
 	# suitsOrder that tracks the order of suits 
 	elif int(cardValuePlayerA) == int(cardValuePlayerB):
 		# if the INDEX is lower that means it's earlier in the list	
 		if cardSuitPlayerAIndex < cardSuitPlayerBIndex:
-			playerAcards.append(x)
-			playerAcards.append(y)
+			playerACards.append(x)
+			playerACards.append(y)
+			print "Player A wins this round"
 		else:
-			playerBcards.append(x)
-			playerBcards.append(y)
+			playerBCards.append(x)
+			playerBCards.append(y)
+			print "Player B wins this round"
 	else:
 		return "This is not possible PlayerA's card was", x, "Player B's card was", y
+	return "Player A now has %s cards in their deck and player B has now %s cards in their deck\n" % (len(playerACards), len(playerBCards))
 
 
 
