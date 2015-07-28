@@ -110,21 +110,41 @@ def bestCard(player1, player2, x, y, z, a):
 def play():
 	(playerA, playerB) = getPlayersNames()
 	print "Hello %s and %s. Are you ready to play? Press Y for yes or N for No" % (playerA, playerB)
-	userResponse = raw_input("Y/N")
+	userResponse = raw_input("> ")
 	if userResponse == "Y":
 		deckOfCards = createDeck()
 		(playerACards, playerBCards) = dealCards(deckOfCards)
-		round = 0
+		rounds = 0
 		while (len(playerACards) > 0 and len(playerBCards) > 0):
 			(playerAPick, playerBPick) = pickCards(playerACards, playerBCards)
 			bestCard(playerA, playerB, playerAPick, playerBPick, playerACards, playerBCards)
-			round += 1
+			rounds += 1
 		if len(playerACards) == 0:
-			print "%s won after %s rounds" % (playerB, round)
+			print "%s won after %s rounds" % (playerB, rounds)
 		else:
-			print "%s won after %s rounds" % (playerA, round)
+			print "%s won after %s rounds" % (playerA, rounds)
 	else:
 		print "Oh well, another time maybe"
+	return rounds
+
+def playForScripting():
+	(playerA, playerB) = ("Josephine", "X")
+	userResponse = "Y"
+	if userResponse == "Y":
+		deckOfCards = createDeck()
+		(playerACards, playerBCards) = dealCards(deckOfCards)
+		rounds = 0
+		while (len(playerACards) > 0 and len(playerBCards) > 0):
+			(playerAPick, playerBPick) = pickCards(playerACards, playerBCards)
+			bestCard(playerA, playerB, playerAPick, playerBPick, playerACards, playerBCards)
+			rounds += 1
+		if len(playerACards) == 0:
+			print "%s won after %s rounds" % (playerB, rounds)
+		else:
+			print "%s won after %s rounds" % (playerA, rounds)
+	else:
+		print "Oh well, another time maybe"
+	return rounds
 
 if __name__ == "__main__":
 	play()
