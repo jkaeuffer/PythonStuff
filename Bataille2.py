@@ -126,7 +126,8 @@ def play():
 	else:
 		print "Oh well, another time maybe"
 
-play()
+if __name__ == "__main__":
+	play()
 
 
 
