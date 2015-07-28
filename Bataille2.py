@@ -15,16 +15,16 @@ import random
 
 
 #asking for players names
-def getPlayersNames():
-	playerA = raw_input("First Player's name?")
-	playerB = raw_input("Second Player's name?")
+# def getPlayersNames():
+# 	playerA = raw_input("First Player's name?")
+# 	playerB = raw_input("Second Player's name?")
 
-(playerA, playerB) = getPlayersNames
+# (playerA, playerB) = getPlayersNames()
 
 #this dictionary holds the cards ranks, suits, and values
 deckVersion2 = {
 	"Ranks": ["2","3","4","5","6","7","8","9","10",'J','Q','K','A'],
-	"Suits": 'shdc', 
+	"Suits": ["s", "h", "d", "c"], 
 	"Values": [2,3,4,5,6,7,8,9,10,11,12,13,14]
 }
 
@@ -43,8 +43,6 @@ deckOfCards = createDeck()
 
  # for debugging
 print "The deck is %s cards\n" % len(deckOfCards)
-
-suitsOrder = ["s", "h", "d", "c"]
 
 # shuffle and deal cards
 def dealCards(cards):
@@ -92,8 +90,8 @@ def bestCard(x, y):
 	# find the card's suit
 	cardSuitPlayerA = x[-1:]
 	cardSuitPlayerB = y[-1:]
-	cardSuitPlayerAIndex = suitsOrder.index(cardSuitPlayerA)
-	cardSuitPlayerBIndex = suitsOrder.index(cardSuitPlayerB)
+	cardSuitPlayerAIndex = deckVersion2["Suits"].index(cardSuitPlayerA)
+	cardSuitPlayerBIndex = deckVersion2["Suits"].index(cardSuitPlayerB)
 	#find the value equivalent to the card's rank
 	cardValuePlayerA = deckVersion2["Values"][indexInDict(cardRankPlayerA)]
 	cardValuePlayerB = deckVersion2["Values"][indexInDict(cardRankPlayerB)]
