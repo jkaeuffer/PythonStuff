@@ -20,8 +20,6 @@ import random
 # 	playerA = raw_input("First Player's name?")
 # 	playerB = raw_input("Second Player's name?")
 
-# (playerA, playerB) = getPlayersNames()
-
 #this dictionary holds the cards ranks, suits, and values
 deckDict = {
 	"Ranks": ["2","3","4","5","6","7","8","9","10",'J','Q','K','A'],
@@ -54,7 +52,6 @@ def dealCards(cards):
 	return playerACards, playerBCards
 
 # pick top card for each player
-
 def pickCards(x, y):
 	playerAPick = x.pop()
 	playerBPick = y.pop()
@@ -66,7 +63,6 @@ def indexInDict(a):
 	return rankIndex
 
 def bestCard(x, y, z, a):
-	# finding the card's rank
 	playerACards = z
 	playerBCards = a
 	if x[0] == "A":
@@ -84,25 +80,25 @@ def bestCard(x, y, z, a):
 	cardValuePlayerA = deckDict["Values"][indexInDict(cardRankPlayerA)]
 	cardValuePlayerB = deckDict["Values"][indexInDict(cardRankPlayerB)]
 	if int(cardValuePlayerA) > int(cardValuePlayerB):
-		playerACards.append(x)
-		playerACards.append(y)
-		print "Player A wins this round"
+		playerACards.insert(0,x)
+		playerACards.insert(0,y)
+		print "Player A wins this round with %s vs %s" % (x,y)
 		return playerACards
 	elif int(cardValuePlayerB) > int(cardValuePlayerA):
-		playerBCards.append(x)
-		playerBCards.append(y)
-		print "Player B wins this round"
+		playerBCards.insert(0,x)
+		playerBCards.insert(0,y)
+		print "Player B wins this round with %s vs %s" % (x,y)
 		return playerBCards
 	elif int(cardValuePlayerA) == int(cardValuePlayerB):
 		if cardSuitPlayerAIndex < cardSuitPlayerBIndex:
-			playerACards.append(x)
-			playerACards.append(y)
-			print "Player A wins this round"
+			playerACards.insert(0,x)
+			playerACards.insert(0,y)
+			print "Player A wins this round with %s vs %s" % (x,y)
 			return playerACards
 		else:
-			playerBCards.append(x)
-			playerBCards.append(y)
-			print "Player B wins this round"
+			playerBCards.insert(0,x)
+			playerBCards.insert(0,y)
+			print "Player B wins this round with %s vs %s" % (x,y)
 			return playerBCards
 	else:
 		return "This is not possible PlayerA's card was", x, "Player B's card was", y
@@ -110,6 +106,7 @@ def bestCard(x, y, z, a):
 	#return playerACards, playerBCards
 
 def play():
+	# (playerA, playerB) = getPlayersNames()
 	deckOfCards = createDeck()
 	print deckOfCards
 	(playerACards, playerBCards) = dealCards(deckOfCards)
