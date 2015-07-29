@@ -67,14 +67,8 @@ def bestCard(player1, player2, x, y, z, a):
 	playerBCards = a
 	playerA = player1
 	playerB = player2
-	if x[0] == "A":
-		cardRankPlayerA = x[0]
-	else:
-		cardRankPlayerA = x[:-1]
-	if y[0] == "A":
-		cardRankPlayerB = y[0]
-	else:
-		cardRankPlayerB = y[:-1]
+	cardRankPlayerA = x[:-1]
+	cardRankPlayerB = y[:-1]
 	cardSuitPlayerA = x[-1:]
 	cardSuitPlayerB = y[-1:]
 	cardSuitPlayerAIndex = deckDict["Suits"].index(cardSuitPlayerA)
@@ -89,7 +83,7 @@ def bestCard(player1, player2, x, y, z, a):
 	elif int(cardValuePlayerB) > int(cardValuePlayerA):
 		playerBCards.insert(0,x)
 		playerBCards.insert(0,y)
-		print "%s wins this round with %s vs %s" % (playerB, x,y)
+		print "%s wins this round with %s vs %s" % (playerB, y,x)
 		return playerBCards
 	elif int(cardValuePlayerA) == int(cardValuePlayerB):
 		if cardSuitPlayerAIndex < cardSuitPlayerBIndex:
@@ -100,7 +94,7 @@ def bestCard(player1, player2, x, y, z, a):
 		else:
 			playerBCards.insert(0,x)
 			playerBCards.insert(0,y)
-			print "%s wins this round with %s vs %s" % (playerB, x,y)
+			print "%s wins this round with %s vs %s" % (playerB, y,x)
 			return playerBCards
 	else:
 		return "This is not possible PlayerA's card was", x, "Player B's card was", y
