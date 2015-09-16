@@ -23,7 +23,7 @@ def getPlayersNames():
 #this dictionary holds the cards ranks, suits, and values
 deckDict = {
 	"Ranks": ["2","3","4","5","6","7","8","9","10",'J','Q','K','A'],
-	"Suits": ["s", "h", "d", "c"], 
+	"Suits": ["s", "h", "d", "c"],
 	"Values": [2,3,4,5,6,7,8,9,10,11,12,13,14]
 }
 
@@ -36,7 +36,7 @@ def createDeck():
 			deckOfCards.append(n + suitsList[x])
 	return deckOfCards
 
- # for debugging
+# for debugging
 # print "The deck is %s cards\n" % len(deckOfCards)
 
 # shuffle and deal cards
@@ -98,8 +98,8 @@ def bestCard(player1, player2, x, y, z, a):
 			return playerBCards
 	else:
 		return "This is not possible PlayerA's card was", x, "Player B's card was", y
-	#return "Player A now has %s cards in their deck and player B has now %s cards in their deck\n" % (len(playerACards), len(playerBCards))
-	#return playerACards, playerBCards
+#return "Player A now has %s cards in their deck and player B has now %s cards in their deck\n" % (len(playerACards), len(playerBCards))
+#return playerACards, playerBCards
 
 def play():
 	(playerA, playerB) = getPlayersNames()
@@ -142,16 +142,6 @@ def playForScripting():
 
 if __name__ == "__main__":
 	play()
-
-
-
-
-
-
-
-
-
-
 
 
 

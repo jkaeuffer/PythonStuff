@@ -11,7 +11,7 @@ alphabet = [n for n in 'abcdefghijklmnopqrstuvwxyz']
 randWordDisplayed = "-" * len(randWord)
 
 # for testing only, comment out the next two lines to actually play the game
-print randWord
+#print randWord
 print randWordDisplayed
 
 # write a function that takes the user input for x turns, gives results to the user, and eventually when the turn is over print the restuls
