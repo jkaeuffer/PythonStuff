@@ -1,5 +1,5 @@
-def fizz_buzz(range_max):
-	for n in range(1,range_max):
+def fizz_buzz():
+	for n in range(1,101):
 		if n % 3 == 0:
 			if n % 5 == 0:
 				print "FizzBuzz"
@@ -11,3 +11,4 @@ def fizz_buzz(range_max):
 			print n
 
 
+fizz_buzz()
