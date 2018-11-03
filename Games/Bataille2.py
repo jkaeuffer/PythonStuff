@@ -122,26 +122,5 @@ def play():
     return rounds
 
 
-def playForScripting():
-    (playerA, playerB) = ("Josephine", "X")
-    userResponse = "Y"
-    if userResponse == "Y":
-        deckOfCards = createDeck()
-        (playerACards, playerBCards) = dealCards(deckOfCards)
-        rounds = 0
-        while (len(playerACards) > 0 and len(playerBCards) > 0):
-            (playerAPick, playerBPick) = pickCards(playerACards, playerBCards)
-            bestCard(playerA, playerB, playerAPick,
-                     playerBPick, playerACards, playerBCards)
-            rounds += 1
-        if len(playerACards) == 0:
-            print "%s won after %s rounds" % (playerB, rounds)
-        else:
-            print "%s won after %s rounds" % (playerA, rounds)
-    else:
-        print "Oh well, another time maybe"
-    return rounds
-
-
 if __name__ == "__main__":
     play()
