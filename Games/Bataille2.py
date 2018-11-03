@@ -8,8 +8,8 @@ import random
 
 # Asking for players names
 def getPlayersNames():
-    playerA = raw_input("First Player's name?")
-    playerB = raw_input("Second Player's name?")
+    playerA = raw_input("First Player's name? ")
+    playerB = raw_input("Second Player's name? ")
     return playerA, playerB
 
 
@@ -99,9 +99,10 @@ def bestCard(player1, player2, x, y, z, a):
 
 
 def play():
-    (playerA, playerB) = getPlayersNames()
-    print "Hello %s and %s. Are you ready to play?" \
-          + " Press Y for yes or N for No" % (playerA, playerB)
+    playerA, playerB = getPlayersNames()
+    print "Hello {p1} and {p2}.".format(p1=playerA, p2=playerB) \
+          + " Are you ready to play?" \
+          + " Press Y for yes or N for No"
     userResponse = raw_input("> ")
     if userResponse == "Y":
         deckOfCards = createDeck()
