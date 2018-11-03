@@ -14,14 +14,14 @@ def resultCheck():
     turnLength = random.randrange(len(randWord), 20)
     print "You have a total of ", turnLength, "turns. Good luck!"
     while turn <= turnLength:
-        userGuess = raw_input("Pick a letter from the alphabet")
+        userGuess = raw_input("Pick a letter from the alphabet ")
         if str.lower(userGuess) not in alphabet:
-            print "Pick a letter from the alphabet"
+            print "Pick a letter from the alphabet "
         elif str.lower(userGuess) in guessedLetters:
-            print "you've already done this one, try another letter"
+            print "You've already done this one, try another letter "
         elif str.lower(userGuess) in [n for n in randWord]:
             guessedLetters.append(str.lower(userGuess))
-            print "this is a correct letter!"
+            print "This is a correct letter! "
             for x in range(len(results)):
                 if [n for n in randWord][x] == str.lower(userGuess):
                     results[x] = str.lower(userGuess)
@@ -31,7 +31,7 @@ def resultCheck():
                 print "Congrats you guess the word", "".join(results)
                 return results
             else:
-                print "word to guess: ", "".join(results)
+                print "Word to guess: ", "".join(results)
         else:
             guessedLetters.append(str.lower(userGuess))
             print "This is an incorrect letter," \
