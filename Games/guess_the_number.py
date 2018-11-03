@@ -24,7 +24,8 @@ for guesses in range(6):
         print "Make sure to enter a number!"
         continue
     if user_guess == number_to_guess:
-        print "Congrats! You have guessed my number in %d tries." % (guesses + 1)
+        print "Congrats! You have guessed my number" \
+               + " in %d tries." % (guesses + 1)
         break
 
     elif user_guess > number_to_guess:
@@ -34,9 +35,5 @@ for guesses in range(6):
         print "Your guess is too low"
 
 if user_guess != number_to_guess:
-    print "Sorry, you lost! The number I was thinking of was %d." % number_to_guess
-
-
-
-
-
+    print "Sorry, you lost! The number I was" \
+           + " thinking of was %d." % number_to_guess
